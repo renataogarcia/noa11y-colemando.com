@@ -2,5 +2,6 @@
    "shell-version": ["3.2"],
    "uuid": "noa11y@colemando.com",
    "name": "noa11y",
+   "url": "https://github.com/fmoralesc/noa11y-colemando.com",
    "description": "Remove a11y icon/menu from panel"
 }
