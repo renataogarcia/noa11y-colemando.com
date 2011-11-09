@@ -1,17 +1,24 @@
+Gnome Shell Extension to remove the Accessibility (a11y) icon on
+the top panel of GNOME Shell.  
 
-Gnome Shell Extension to remove the Accessibility icon.
-
-Installation:
+Per-user Installation:
 
 $ mkdir -p ~/.local/share/gnome-shell/extensions
 $ cd ~/.local/share/gnome-shell/extensions
 $ git clone https://github.com/ecoleman/noa11y-colemando.com.git
 
+Global Installation:
+
+# cd /usr/share/gnome-shell/extensions
+# git clone https://github.com/ecoleman/noa11y-colemando.com.git
+
 Press ALT+F2, type 'r' and hit enter.
 
-Note, the name of the extension directory is important.  gnome-shell
+Note, the name of the extension directory is important. gnome-shell
 will not load the extension otherwise.
 
-Credit goes to fpmurphy
-  http://forums.fedoraforum.org/showpost.php?p=1460585&postcount=17
+Use gsettings, gnome-tweak-tool, gconf-editor or the latest version of
+gnome-shell-extension-tool to enable or disable the extension.
+
+Credit goes to Finnbarr P. Murphy (fpmATfpmurphy.com) 
 
