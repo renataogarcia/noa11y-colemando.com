@@ -1,21 +1,52 @@
-const Panel = imports.ui.panel;
 const Main = imports.ui.main;
 
-function enable() {
-	for (let i = 0; i < Main.panel._rightBox.get_children().length; i++) {
-		if (Main.panel._statusArea['a11y'] == Main.panel._rightBox.get_children()[i]._delegate) {
-			Main.panel._rightBox.get_children()[i].destroy();
-			break;
-		} 
-	}
-	// addToStatusArea would throw an error on disable if we don't set this to null 
-	Main.panel._statusArea['a11y'] = null;
+function NoA11yExtension() {
+    this._init()
 }
 
-function disable() {
-	let indicator = new Panel.STANDARD_STATUS_AREA_SHELL_IMPLEMENTATION["a11y"];
-	Main.panel.addToStatusArea("a11y", indicator, Panel.STANDARD_STATUS_AREA_ORDER.indexOf('a11y'));
-}
+
+NoA11yExtension.prototype = {
+    _init: function() {
+        this._index = -1;
+        this._removed = 0;
+
+        let list = Main.panel._status_area_order;
+        for (let i = 0; i < list.length; i++) {
+            if (list[i] == 'a11y') {
+               this._index = i;
+               break;
+            }
+        }
+    },
+
+    enable: function() {
+        if (this._index == -1 || this._removed == 1) return;
+        
+        let children = Main.panel._rightBox.get_children();
+        for (let i = 0; i < children.length; i++) {
+            if (children[i]._rolePosition == this._index) {
+                children[i].destroy();
+                this._removed = 1;
+                break;
+            }
+        }
+    },
+
+    disable: function() {
+        if (this._index == -1 || this._removed == 0) return;
+
+        let role = Main.panel._status_area_order[this._index];
+        let constructor = Main.panel._status_area_shell_implementation[role];
+        if (constructor != null ) {
+            Main.panel._statusArea[role] = null;
+            let indicator = new constructor();
+            Main.panel.addToStatusArea(role, indicator, this._index);
+            this._removed = 0;
+        }
+    }
+};
+
 
 function init() {
+    return new NoA11yExtension(); 
 }
