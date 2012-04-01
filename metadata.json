@@ -1,5 +1,5 @@
 {
-   "shell-version": ["3.2"],
+   "shell-version": ["3.2","3.3","3.4"],
    "uuid": "noa11y@colemando.com",
    "name": "noa11y",
    "url": "https://github.com/fmoralesc/noa11y-colemando.com",
